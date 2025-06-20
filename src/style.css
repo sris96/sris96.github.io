@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-neutral-50 text-neutral-900 antialiased;
+  }
+
+  * {
+    @apply border-neutral-200;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 sm:px-6 sm:py-3 text-sm sm:text-sm font-medium text-white bg-accent-600 hover:bg-accent-700 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 shadow-sm hover:shadow-md touch-manipulation min-h-[44px];
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 sm:px-6 sm:py-3 text-sm sm:text-sm font-medium text-accent-700 bg-accent-50 hover:bg-accent-100 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 border border-accent-200 touch-manipulation min-h-[44px];
+  }
+  
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 sm:px-6 sm:py-3 text-sm sm:text-sm font-medium text-primary-700 border border-primary-300 hover:border-accent-400 hover:bg-accent-50 hover:text-accent-700 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 touch-manipulation min-h-[44px];
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-neutral-100;
+  }
+  
+  .section-title {
+    @apply text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary-900 mb-3 sm:mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-base sm:text-lg text-neutral-600 mb-6 sm:mb-8 leading-relaxed;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent-600 to-primary-700 bg-clip-text text-transparent;
+  }
+  
+  .nav-link {
+    @apply relative text-neutral-700 hover:text-accent-700 transition-colors duration-200 font-medium text-sm;
+  }
+  
+  .nav-link::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent-600 transition-all duration-200;
+    content: '';
+  }
+  
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+  
+  .skill-tag {
+    @apply inline-block px-3 py-1 bg-secondary-100 text-secondary-700 rounded-md text-sm font-medium hover:bg-secondary-200 transition-colors duration-200;
+  }
+  
+  .project-card {
+    @apply bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-200 overflow-hidden border border-neutral-100 hover:border-accent-200;
+  }
+  
+  .blog-card {
+    @apply bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-6 border border-neutral-100 hover:border-accent-200;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+}
