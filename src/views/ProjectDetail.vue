@@ -224,49 +224,15 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-interface Project {
-  id: number
-  title: string
-  description: string
-  category: string
-  duration: string
-  status: string
-  skills: string[]
-  overview: string
-  client: string
-  teamSize: number
-  role: string
-  links: {
-    live?: string
-    github?: string
-    pdf?: string
-  }
-  metrics: {
-    impact: string
-    complexity: string
-  }
-  methodology: Array<{
-    title: string
-    description: string
-  }>
-  findings: Array<{
-    title: string
-    description: string
-  }>
-  tools: Array<{
-    name: string
-    proficiency: number
-  }>
-}
 
 const route = useRoute()
-const project = ref<Project | null>(null)
+const project = ref(null)
 
-const projects: Project[] = [
+const projects = [
   {
     id: 1,
     title: 'Economic Impact of Digital Transformation in SMEs',
@@ -379,11 +345,11 @@ const projects: Project[] = [
 
 const relatedProjects = computed(() => {
   if (!project.value) return []
-  return projects.filter(p => p.id !== project.value!.id).slice(0, 3)
+  return projects.filter(p => p.id !== project.value.id).slice(0, 3)
 })
 
 onMounted(() => {
-  const projectId = parseInt(route.params.id as string)
+  const projectId = parseInt(route.params.id)
   project.value = projects.find(p => p.id === projectId) || null
 })
 </script>

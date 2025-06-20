@@ -223,11 +223,11 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, reactive } from 'vue'
 
 const isSubmitting = ref(false)
-const submitMessage = ref<{ type: 'success' | 'error'; text: string } | null>(null)
+const submitMessage = ref(null)
 
 const form = reactive({
   name: '',
@@ -251,7 +251,7 @@ const submitForm = async () => {
     
     // Reset form
     Object.keys(form).forEach(key => {
-      form[key as keyof typeof form] = ''
+      form[key] = ''
     })
   } catch (error) {
     submitMessage.value = {

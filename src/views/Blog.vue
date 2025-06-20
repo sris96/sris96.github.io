@@ -182,24 +182,9 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, computed } from 'vue'
 
-interface BlogPost {
-  id: number
-  title: string
-  excerpt: string
-  category: string
-  date: string
-  readTime: string
-  featured?: boolean
-  tags: string[]
-  image?: string
-  author: {
-    name: string
-    role: string
-  }
-}
 
 const selectedCategory = ref('All')
 const searchQuery = ref('')
@@ -214,7 +199,7 @@ const categories = [
   'Academia'
 ]
 
-const blogPosts: BlogPost[] = [
+const blogPosts = [
   {
     id: 1,
     title: 'Understanding RCA: A Tool for Trade Competitiveness Analysis',

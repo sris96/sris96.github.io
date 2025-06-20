@@ -174,13 +174,5 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const projects = [
-  { id: 1, route: '/projects/1' },
-  { id: 2, route: '/projects/2' },
-  { id: 3, route: '/projects/2' }, // Using project 2 as template
-  { id: 4, route: '/projects/2' },
-  { id: 5, route: '/projects/2' },
-  { id: 6, route: '/projects/2' }
-]
+<script setup>
 </script>
