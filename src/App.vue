@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
 </script>

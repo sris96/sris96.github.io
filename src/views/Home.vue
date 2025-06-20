@@ -416,7 +416,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -495,7 +495,7 @@ const philosophyCards = [
 ]
 
 // Enhanced interaction handlers
-const handleAreaHover = (index: number) => {
+const handleAreaHover = (index) => {
   // Add subtle haptic feedback if supported
   if ('vibrate' in navigator) {
     navigator.vibrate(10)
@@ -506,7 +506,7 @@ const handleAreaLeave = () => {
   // Reset any hover states if needed
 }
 
-const handlePhilosophyHover = (index: number) => {
+const handlePhilosophyHover = (index) => {
   // Add interaction feedback
 }
 
@@ -515,7 +515,7 @@ const scrollToSection = () => {
   nextSection?.scrollIntoView({ behavior: 'smooth' })
 }
 
-const navigateToProject = (id: number) => {
+const navigateToProject = (id) => {
   router.push(`/projects/${id}`)
 }
 

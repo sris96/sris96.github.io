@@ -60,7 +60,7 @@
   </nav>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const mobileMenuOpen = ref(false)

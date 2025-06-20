@@ -171,30 +171,14 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-interface BlogPost {
-  id: number
-  title: string
-  excerpt: string
-  category: string
-  date: string
-  readTime: string
-  featured?: boolean
-  tags: string[]
-  image?: string
-  author: {
-    name: string
-    role: string
-  }
-}
-
 const route = useRoute()
-const post = ref<BlogPost | null>(null)
+const post = ref(null)
 
-const blogPosts: BlogPost[] = [
+const blogPosts = [
   {
     id: 1,
     title: 'Understanding RCA: A Tool for Trade Competitiveness Analysis',
@@ -316,7 +300,7 @@ const blogPosts: BlogPost[] = [
 ]
 
 onMounted(() => {
-  const postId = parseInt(route.params.id as string)
+  const postId = parseInt(route.params.id)
   post.value = blogPosts.find(p => p.id === postId) || null
 })
 </script>
