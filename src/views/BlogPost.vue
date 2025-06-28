@@ -65,102 +65,119 @@
         </div>
         
         <article v-else class="prose prose-lg max-w-none">
-          <!-- Featured Image Placeholder -->
-          <div class="w-full h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-xl mb-12 flex items-center justify-center">
+          <!-- Featured Image -->
+          <div v-if="post.coverImage" class="mb-12">
+            <div class="w-full h-64 sm:h-80 lg:h-96 rounded-xl overflow-hidden shadow-lg">
+              <img 
+                :src="post.coverImage" 
+                :alt="post.title"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div v-if="post.imageCredit" class="mt-3 text-xs text-neutral-500 italic text-center">
+              {{ post.imageCredit }}
+            </div>
+          </div>
+          
+          <!-- Fallback Image Placeholder -->
+          <div v-else class="w-full h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-xl mb-12 flex items-center justify-center">
             <svg class="w-20 h-20 text-neutral-300" fill="currentColor" viewBox="0 0 24 24">
               <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
             </svg>
           </div>
 
           <!-- Article Content -->
-          <div class="text-neutral-700 leading-relaxed space-y-6">
-            <p class="text-xl leading-relaxed text-neutral-600 font-medium">
-              {{ post.excerpt }}
-            </p>
-            
-            <h2 class="text-2xl font-bold text-primary-900 mt-12 mb-6">Introduction</h2>
-            <p>
-              This is a sample blog post demonstrating the structure and layout of individual article pages. 
-              In a real implementation, this content would be dynamically loaded from a content management system 
-              or markdown files.
-            </p>
-            
-            <h2 class="text-2xl font-bold text-primary-900 mt-12 mb-6">Key Insights</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore 
-              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-              aliquip ex ea commodo consequat.
-            </p>
-            
-            <blockquote class="border-l-4 border-accent-500 pl-6 py-4 bg-accent-50/30 rounded-r-lg my-8">
-              <p class="text-lg font-medium text-neutral-800 italic">
-                "This is an example quote that might appear in a typical blog post to highlight important insights or expert opinions."
-              </p>
-            </blockquote>
-            
-            <h2 class="text-2xl font-bold text-primary-900 mt-12 mb-6">Analysis & Methodology</h2>
-            <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            
-            <ul class="list-disc pl-6 space-y-2 my-6">
-              <li>Data collection from multiple reliable sources</li>
-              <li>Statistical analysis using modern econometric methods</li>
-              <li>Cross-validation with historical trends</li>
-              <li>Expert consultation and peer review</li>
-            </ul>
-            
-            <h2 class="text-2xl font-bold text-primary-900 mt-12 mb-6">Conclusions</h2>
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
-              totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            </p>
-            
-            <div class="bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-200/50 rounded-xl p-6 my-8">
-              <h3 class="text-lg font-semibold text-primary-900 mb-3">Key Takeaways</h3>
-              <ul class="space-y-2">
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-accent-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
-                  </svg>
-                  <span>Understanding market dynamics is crucial for policy development</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-accent-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
-                  </svg>
-                  <span>Data-driven approaches yield more reliable insights</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-accent-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
-                  </svg>
-                  <span>Long-term trends require careful analysis and interpretation</span>
-                </li>
-              </ul>
-            </div>
+          <div class="prose prose-lg max-w-none text-neutral-700" v-html="htmlContent">
           </div>
         </article>
 
-        <!-- Article Footer -->
+        <!-- Share Article Section -->
         <div v-if="post" class="mt-16 pt-8 border-t border-neutral-200">
-          <div class="flex flex-wrap justify-between items-center gap-6">
-            <div class="flex items-center gap-4">
-              <span class="text-sm font-medium text-neutral-600">Share this article:</span>
-              <div class="flex gap-3">
-                <button class="p-2 rounded-lg glass-card hover:bg-white/80 transition-colors">
-                  <svg class="w-5 h-5 text-neutral-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                  </svg>
-                </button>
-                <button class="p-2 rounded-lg glass-card hover:bg-white/80 transition-colors">
-                  <svg class="w-5 h-5 text-neutral-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
+          <div class="bg-gradient-to-r from-accent-50/50 to-primary-50/50 rounded-2xl p-6 sm:p-8 mb-8">
+            <h3 class="text-lg sm:text-xl font-semibold text-neutral-800 mb-4 text-center">
+              Share this article
+            </h3>
+            
+            <!-- Share Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6">
+              <!-- Twitter -->
+              <button 
+                @click="shareToTwitter"
+                class="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors touch-manipulation active:scale-95"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                </svg>
+                <span class="hidden sm:inline">Twitter</span>
+              </button>
+
+              <!-- LinkedIn -->
+              <button 
+                @click="shareToLinkedIn"
+                class="flex items-center gap-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg transition-colors touch-manipulation active:scale-95"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                <span class="hidden sm:inline">LinkedIn</span>
+              </button>
+
+              <!-- Facebook -->
+              <button 
+                @click="shareToFacebook"
+                class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors touch-manipulation active:scale-95"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                <span class="hidden sm:inline">Facebook</span>
+              </button>
+
+              <!-- WhatsApp -->
+              <button 
+                @click="shareToWhatsApp"
+                class="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors touch-manipulation active:scale-95"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/>
+                </svg>
+                <span class="hidden sm:inline">WhatsApp</span>
+              </button>
+
+              <!-- Copy Link -->
+              <button 
+                @click="copyLink"
+                class="flex items-center gap-2 px-4 py-2 bg-neutral-600 hover:bg-neutral-700 text-white rounded-lg transition-colors touch-manipulation active:scale-95"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span class="hidden sm:inline">{{ copied ? 'Copied!' : 'Copy Link' }}</span>
+              </button>
+            </div>
+
+            <!-- Copy Link Field -->
+            <div class="bg-white rounded-lg p-4 border border-neutral-200">
+              <label class="block text-sm font-medium text-neutral-700 mb-2">Article URL:</label>
+              <div class="flex gap-2">
+                <input 
+                  ref="linkInput"
+                  :value="currentUrl" 
+                  readonly
+                  class="flex-1 px-3 py-2 border border-neutral-300 rounded-md text-sm bg-neutral-50 text-neutral-600"
+                />
+                <button 
+                  @click="copyLink"
+                  class="px-4 py-2 bg-accent-600 hover:bg-accent-700 text-white rounded-md text-sm font-medium transition-colors"
+                >
+                  {{ copied ? 'Copied!' : 'Copy' }}
                 </button>
               </div>
             </div>
+          </div>
+
+          <!-- Back to Blog -->
+          <div class="text-center">
             <router-link to="/blog" class="btn-outline">
               ← More Articles
             </router-link>
@@ -172,135 +189,77 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { getBlogPostById, parseMarkdown } from '../utils/blog'
 
 const route = useRoute()
 const post = ref(null)
+const htmlContent = ref('')
+const copied = ref(false)
+const linkInput = ref(null)
 
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Understanding RCA: A Tool for Trade Competitiveness Analysis',
-    excerpt: 'Revealed Comparative Advantage (RCA) is a crucial metric for understanding a country\'s trade competitiveness. This post explores its applications in economic research.',
-    category: 'Economic Research',
-    date: 'November 28, 2023',
-    readTime: '6 min read',
-    tags: ['RCA', 'Trade Analysis', 'Economic Metrics'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Economic Researcher'
-    }
-  },
-  {
-    id: 2,
-    title: 'The Impact of GST on Indian Manufacturing',
-    excerpt: 'Analyzing how the Goods and Services Tax implementation has transformed the Indian manufacturing landscape, particularly in textiles and cotton industries.',
-    category: 'Policy Insights',
-    date: 'November 15, 2023',
-    readTime: '8 min read',
-    tags: ['GST', 'India', 'Manufacturing', 'Tax Policy'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Policy Analyst'
-    }
-  },
-  {
-    id: 3,
-    title: 'Data Visualization Best Practices in Economic Research',
-    excerpt: 'Effective data visualization is crucial for communicating research findings. Here are key principles for creating impactful economic charts and graphs.',
-    category: 'Data Analysis',
-    date: 'October 30, 2023',
-    readTime: '5 min read',
-    tags: ['Data Viz', 'Research Methods', 'Analytics'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Data Analyst'
-    }
-  },
-  {
-    id: 4,
-    title: 'Trade Wars and Their Economic Implications',
-    excerpt: 'An analysis of how trade conflicts reshape global supply chains and affect developing economies, with case studies from recent years.',
-    category: 'International Trade',
-    date: 'October 12, 2023',
-    readTime: '10 min read',
-    tags: ['Trade Wars', 'Global Economy', 'Supply Chains'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'International Trade Expert'
-    }
-  },
-  {
-    id: 5,
-    title: 'The Role of Secondary Data in Economic Research',
-    excerpt: 'Exploring the importance, advantages, and limitations of using secondary data sources in economic analysis and policy research.',
-    category: 'Academia',
-    date: 'September 28, 2023',
-    readTime: '7 min read',
-    tags: ['Research Methods', 'Secondary Data', 'Academic Writing'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Academic Researcher'
-    }
-  },
-  {
-    id: 6,
-    title: 'Emerging Markets: Opportunities and Challenges',
-    excerpt: 'A comprehensive look at investment opportunities and risks in emerging markets, with focus on Asian economies.',
-    category: 'Market Trends',
-    date: 'September 15, 2023',
-    readTime: '9 min read',
-    tags: ['Emerging Markets', 'Investment', 'Asia'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Market Analyst'
-    }
-  },
-  {
-    id: 7,
-    title: 'Python for Economic Data Analysis',
-    excerpt: 'A practical guide to using Python libraries like pandas and numpy for economic data analysis, with real-world examples.',
-    category: 'Data Analysis',
-    date: 'September 1, 2023',
-    readTime: '12 min read',
-    tags: ['Python', 'Pandas', 'Economic Analysis'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Data Scientist'
-    }
-  },
-  {
-    id: 8,
-    title: 'The Economics of Climate Change',
-    excerpt: 'Examining the economic impacts of climate change and the cost-benefit analysis of various mitigation strategies.',
-    category: 'Policy Insights',
-    date: 'August 20, 2023',
-    readTime: '15 min read',
-    tags: ['Climate Change', 'Environmental Economics', 'Policy'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Environmental Economist'
-    }
-  },
-  {
-    id: 9,
-    title: 'API Manufacturing in India: Breaking Import Dependencies',
-    excerpt: 'Deep dive into India\'s pharmaceutical industry challenges and opportunities for building domestic API manufacturing capabilities.',
-    category: 'International Trade',
-    date: 'August 5, 2023',
-    readTime: '8 min read',
-    featured: true,
-    tags: ['Pharmaceuticals', 'API', 'India', 'Import Substitution'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Industry Analyst'
-    }
+// Get current URL
+const currentUrl = computed(() => {
+  if (typeof window !== 'undefined') {
+    return window.location.href
   }
-]
+  return ''
+})
+
+// Share functions
+const shareToTwitter = () => {
+  const text = `${post.value.title} - ${post.value.excerpt}`
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(currentUrl.value)}`
+  window.open(url, '_blank', 'width=600,height=400')
+}
+
+const shareToLinkedIn = () => {
+  const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl.value)}`
+  window.open(url, '_blank', 'width=600,height=600')
+}
+
+const shareToFacebook = () => {
+  const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl.value)}`
+  window.open(url, '_blank', 'width=600,height=400')
+}
+
+const shareToWhatsApp = () => {
+  const text = `${post.value.title} - ${post.value.excerpt}`
+  const url = `https://wa.me/?text=${encodeURIComponent(text + ' ' + currentUrl.value)}`
+  window.open(url, '_blank')
+}
+
+const copyLink = async () => {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(currentUrl.value)
+    } else {
+      // Fallback for older browsers
+      if (linkInput.value) {
+        linkInput.value.select()
+        linkInput.value.setSelectionRange(0, 99999)
+        document.execCommand('copy')
+      }
+    }
+    
+    copied.value = true
+    setTimeout(() => {
+      copied.value = false
+    }, 2000)
+  } catch (err) {
+    console.error('Failed to copy: ', err)
+  }
+}
 
 onMounted(() => {
   const postId = parseInt(route.params.id)
-  post.value = blogPosts.find(p => p.id === postId) || null
+  const blogPost = getBlogPostById(postId)
+  
+  if (blogPost) {
+    post.value = blogPost
+    // Parse markdown content to HTML
+    htmlContent.value = parseMarkdown(blogPost.content)
+  }
 })
 </script>

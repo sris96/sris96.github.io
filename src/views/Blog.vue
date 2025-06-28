@@ -12,7 +12,7 @@
     <section class="py-12 sm:py-16 lg:py-20">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <!-- Mobile-Optimized Featured Post -->
-        <div class="mb-12 sm:mb-16">
+        <div v-if="featuredPost" class="mb-12 sm:mb-16">
           <div class="card bg-gradient-to-br from-accent-50/30 to-neutral-50 border-accent-200 relative overflow-hidden">
           <div class="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-accent-400/20 to-primary-400/20 rounded-full blur-2xl"></div>
           <div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 items-center">
@@ -24,20 +24,16 @@
                 Featured Article
               </div>
               <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 mb-4 sm:mb-6 font-serif leading-tight">
-                The Future of India's API Industry: Breaking Free from Import Dependency
+                {{ featuredPost.title }}
               </h2>
-              <p class="text-sm sm:text-base lg:text-lg text-neutral-600 mb-4 sm:mb-6 font-medium">December 15, 2023 • 8 min read</p>
+              <p class="text-sm sm:text-base lg:text-lg text-neutral-600 mb-4 sm:mb-6 font-medium">{{ featuredPost.date }} • {{ featuredPost.readTime }}</p>
               <p class="text-base sm:text-lg lg:text-xl text-neutral-700 mb-6 sm:mb-8 leading-relaxed">
-                As India grapples with its heavy reliance on Chinese Active Pharmaceutical Ingredients (APIs), 
-                this analysis explores strategic pathways for building domestic manufacturing capabilities and 
-                reducing import vulnerabilities. Drawing from extensive research on market dynamics...
+                {{ featuredPost.excerpt }}
               </p>
               <div class="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8">
-                <span class="skill-tag text-xs sm:text-sm">International Trade</span>
-                <span class="skill-tag text-xs sm:text-sm">Policy Analysis</span>
-                <span class="skill-tag text-xs sm:text-sm">Market Research</span>
+                <span v-for="tag in featuredPost.tags.slice(0, 3)" :key="tag" class="skill-tag text-xs sm:text-sm">{{ tag }}</span>
               </div>
-              <router-link to="/blog/9" class="btn-primary group touch-manipulation transform active:scale-95 sm:hover:scale-105">
+              <router-link :to="`/blog/${featuredPost.id}`" class="btn-primary group touch-manipulation transform active:scale-95 sm:hover:scale-105">
                 <span>Read Full Article</span>
                 <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
@@ -46,10 +42,18 @@
             </div>
             <div class="lg:col-span-1">
               <div class="bg-white rounded-lg p-4 sm:p-6 shadow-sm border border-neutral-100">
-                <div class="w-full h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-accent-100 to-accent-200 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
-                  <svg class="w-12 h-12 sm:w-16 sm:h-16 text-accent-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12,19A2,2 0 0,1 10,17A2,2 0 0,1 12,15A2,2 0 0,1 14,17A2,2 0 0,1 12,19M12,3C7.86,3 4.5,5.69 4.05,9.55C3.87,11.84 4.58,14.05 6.15,15.68L7.5,17.06C9.13,18.78 10.91,20.24 12,20.24C13.09,20.24 14.87,18.78 16.5,17.06L17.85,15.68C19.42,14.05 20.13,11.84 19.95,9.55C19.5,5.69 16.14,3 12,3M12,8A2,2 0 0,1 14,10A2,2 0 0,1 12,12A2,2 0 0,1 10,10A2,2 0 0,1 12,8Z"/>
-                  </svg>
+                <div class="w-full h-32 sm:h-40 lg:h-48 rounded-lg overflow-hidden mb-3 sm:mb-4">
+                  <img 
+                    v-if="featuredPost.coverImage" 
+                    :src="featuredPost.coverImage" 
+                    :alt="featuredPost.title"
+                    class="w-full h-full object-cover"
+                  />
+                  <div v-else class="w-full h-full bg-gradient-to-br from-accent-100 to-accent-200 rounded-lg flex items-center justify-center">
+                    <svg class="w-12 h-12 sm:w-16 sm:h-16 text-accent-600" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12,19A2,2 0 0,1 10,17A2,2 0 0,1 12,15A2,2 0 0,1 14,17A2,2 0 0,1 12,19M12,3C7.86,3 4.5,5.69 4.05,9.55C3.87,11.84 4.58,14.05 6.15,15.68L7.5,17.06C9.13,18.78 10.91,20.24 12,20.24C13.09,20.24 14.87,18.78 16.5,17.06L17.85,15.68C19.42,14.05 20.13,11.84 19.95,9.55C19.5,5.69 16.14,3 12,3M12,8A2,2 0 0,1 14,10A2,2 0 0,1 12,12A2,2 0 0,1 10,10A2,2 0 0,1 12,8Z"/>
+                    </svg>
+                  </div>
                 </div>
                 <div class="text-center">
                   <h3 class="text-base sm:text-lg font-semibold text-primary-900 mb-1 sm:mb-2">Research Insights</h3>
@@ -104,10 +108,16 @@
           </div>
           
           <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            <article v-for="post in filteredPosts" :key="post.id" class="blog-card group transform active:scale-95 sm:hover:scale-105 sm:hover:-translate-y-1 transition-all duration-300">
+            <router-link v-for="post in filteredPosts" :key="post.id" :to="`/blog/${post.id}`" class="blog-card group transform active:scale-95 sm:hover:scale-105 sm:hover:-translate-y-1 transition-all duration-300 cursor-pointer">
               <div class="relative overflow-hidden">
-                <div class="bg-gradient-to-br from-neutral-100 to-neutral-200 h-40 sm:h-48 rounded-t-lg">
-                  <div class="absolute inset-0 flex items-center justify-center">
+                <div class="h-40 sm:h-48 rounded-t-lg overflow-hidden">
+                  <img 
+                    v-if="post.coverImage" 
+                    :src="post.coverImage" 
+                    :alt="post.title"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div v-else class="bg-gradient-to-br from-neutral-100 to-neutral-200 h-full flex items-center justify-center">
                     <svg class="w-12 h-12 sm:w-16 sm:h-16 text-neutral-300" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M10,11V19H8V11H10M14,11V19H12V11H14M18,11V19H16V11H18Z"/>
                     </svg>
@@ -146,15 +156,15 @@
                       <p class="text-xs text-neutral-500">{{ post.date }}</p>
                     </div>
                   </div>
-                  <router-link :to="`/blog/${post.id}`" class="text-xs sm:text-sm font-medium text-accent-600 hover:text-accent-700 transition-colors group flex items-center gap-1 touch-manipulation">
+                  <span class="text-xs sm:text-sm font-medium text-accent-600 hover:text-accent-700 transition-colors group flex items-center gap-1 touch-manipulation">
                     <span>Read</span>
                     <svg class="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
                     </svg>
-                  </router-link>
+                  </span>
                 </div>
               </div>
-            </article>
+            </router-link>
           </div>
         </div>
         <!-- Mobile-Optimized Pagination -->
@@ -183,157 +193,36 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-
+import { ref, computed, onMounted } from 'vue'
+import { getAllBlogPosts, getAllCategories, searchPosts, getFeaturedPosts } from '../utils/blog'
 
 const selectedCategory = ref('All')
 const searchQuery = ref('')
+const blogPosts = ref([])
+const categories = ref([])
+const featuredPost = ref(null)
 
-const categories = [
-  'All',
-  'Economic Research',
-  'International Trade',
-  'Data Analysis',
-  'Policy Insights',
-  'Market Trends',
-  'Academia'
-]
-
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Understanding RCA: A Tool for Trade Competitiveness Analysis',
-    excerpt: 'Revealed Comparative Advantage (RCA) is a crucial metric for understanding a country\'s trade competitiveness. This post explores its applications in economic research.',
-    category: 'Economic Research',
-    date: 'November 28, 2023',
-    readTime: '6 min read',
-    tags: ['RCA', 'Trade Analysis', 'Economic Metrics'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Economic Researcher'
-    }
-  },
-  {
-    id: 2,
-    title: 'The Impact of GST on Indian Manufacturing',
-    excerpt: 'Analyzing how the Goods and Services Tax implementation has transformed the Indian manufacturing landscape, particularly in textiles and cotton industries.',
-    category: 'Policy Insights',
-    date: 'November 15, 2023',
-    readTime: '8 min read',
-    tags: ['GST', 'India', 'Manufacturing', 'Tax Policy'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Policy Analyst'
-    }
-  },
-  {
-    id: 3,
-    title: 'Data Visualization Best Practices in Economic Research',
-    excerpt: 'Effective data visualization is crucial for communicating research findings. Here are key principles for creating impactful economic charts and graphs.',
-    category: 'Data Analysis',
-    date: 'October 30, 2023',
-    readTime: '5 min read',
-    tags: ['Data Viz', 'Research Methods', 'Analytics'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Data Analyst'
-    }
-  },
-  {
-    id: 4,
-    title: 'Trade Wars and Their Economic Implications',
-    excerpt: 'An analysis of how trade conflicts reshape global supply chains and affect developing economies, with case studies from recent years.',
-    category: 'International Trade',
-    date: 'October 12, 2023',
-    readTime: '10 min read',
-    tags: ['Trade Wars', 'Global Economy', 'Supply Chains'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'International Trade Expert'
-    }
-  },
-  {
-    id: 5,
-    title: 'The Role of Secondary Data in Economic Research',
-    excerpt: 'Exploring the importance, advantages, and limitations of using secondary data sources in economic analysis and policy research.',
-    category: 'Academia',
-    date: 'September 28, 2023',
-    readTime: '7 min read',
-    tags: ['Research Methods', 'Secondary Data', 'Academic Writing'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Academic Researcher'
-    }
-  },
-  {
-    id: 6,
-    title: 'Emerging Markets: Opportunities and Challenges',
-    excerpt: 'A comprehensive look at investment opportunities and risks in emerging markets, with focus on Asian economies.',
-    category: 'Market Trends',
-    date: 'September 15, 2023',
-    readTime: '9 min read',
-    tags: ['Emerging Markets', 'Investment', 'Asia'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Market Analyst'
-    }
-  },
-  {
-    id: 7,
-    title: 'Python for Economic Data Analysis',
-    excerpt: 'A practical guide to using Python libraries like pandas and numpy for economic data analysis, with real-world examples.',
-    category: 'Data Analysis',
-    date: 'September 1, 2023',
-    readTime: '12 min read',
-    tags: ['Python', 'Pandas', 'Economic Analysis'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Data Scientist'
-    }
-  },
-  {
-    id: 8,
-    title: 'The Economics of Climate Change',
-    excerpt: 'Examining the economic impacts of climate change and the cost-benefit analysis of various mitigation strategies.',
-    category: 'Policy Insights',
-    date: 'August 20, 2023',
-    readTime: '15 min read',
-    tags: ['Climate Change', 'Environmental Economics', 'Policy'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Environmental Economist'
-    }
-  },
-  {
-    id: 9,
-    title: 'API Manufacturing in India: Breaking Import Dependencies',
-    excerpt: 'Deep dive into India\'s pharmaceutical industry challenges and opportunities for building domestic API manufacturing capabilities.',
-    category: 'International Trade',
-    date: 'August 5, 2023',
-    readTime: '8 min read',
-    featured: true,
-    tags: ['Pharmaceuticals', 'API', 'India', 'Import Substitution'],
-    author: {
-      name: 'Sikandar Atiq',
-      role: 'Industry Analyst'
-    }
+onMounted(() => {
+  // Load blog posts from markdown files
+  blogPosts.value = getAllBlogPosts()
+  categories.value = getAllCategories()
+  
+  // Get featured posts
+  const featured = getFeaturedPosts()
+  if (featured.length > 0) {
+    featuredPost.value = featured[0]
   }
-]
+})
 
 const filteredPosts = computed(() => {
-  let posts = blogPosts
+  let posts = blogPosts.value
   
   if (selectedCategory.value !== 'All') {
     posts = posts.filter(post => post.category === selectedCategory.value)
   }
   
   if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase()
-    posts = posts.filter(post => 
-      post.title.toLowerCase().includes(query) ||
-      post.excerpt.toLowerCase().includes(query) ||
-      post.tags.some(tag => tag.toLowerCase().includes(query))
-    )
+    posts = searchPosts(searchQuery.value, posts)
   }
   
   return posts
