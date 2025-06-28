@@ -70,6 +70,83 @@
   .blog-card {
     @apply bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-6 border border-neutral-100 hover:border-accent-200;
   }
+
+  /* Prose styles for markdown content */
+  .prose {
+    @apply text-neutral-700 leading-relaxed;
+  }
+
+  .prose h1 {
+    @apply text-3xl sm:text-4xl font-bold text-primary-900 mb-6 mt-8 font-display leading-tight;
+  }
+
+  .prose h2 {
+    @apply text-2xl sm:text-3xl font-bold text-primary-900 mb-4 mt-8 font-display;
+  }
+
+  .prose h3 {
+    @apply text-xl sm:text-2xl font-semibold text-primary-900 mb-3 mt-6 font-display;
+  }
+
+  .prose h4 {
+    @apply text-lg sm:text-xl font-semibold text-primary-900 mb-2 mt-4;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed text-base sm:text-lg;
+  }
+
+  .prose ul {
+    @apply list-disc pl-6 space-y-2 mb-6;
+  }
+
+  .prose ol {
+    @apply list-decimal pl-6 space-y-2 mb-6;
+  }
+
+  .prose li {
+    @apply leading-relaxed;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-accent-500 pl-6 py-4 bg-accent-50/30 rounded-r-lg my-8 italic text-lg font-medium text-neutral-800;
+  }
+
+  .prose code {
+    @apply bg-neutral-100 px-2 py-1 rounded text-sm font-mono text-neutral-800;
+  }
+
+  .prose pre {
+    @apply bg-neutral-900 text-neutral-100 p-4 rounded-lg overflow-x-auto mb-6 text-sm;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0 text-neutral-100;
+  }
+
+  .prose table {
+    @apply w-full border-collapse border border-neutral-200 mb-6;
+  }
+
+  .prose th {
+    @apply border border-neutral-200 bg-neutral-50 px-4 py-2 font-semibold text-left;
+  }
+
+  .prose td {
+    @apply border border-neutral-200 px-4 py-2;
+  }
+
+  .prose a {
+    @apply text-accent-600 hover:text-accent-700 underline transition-colors;
+  }
+
+  .prose strong {
+    @apply font-semibold text-neutral-900;
+  }
+
+  .prose em {
+    @apply italic;
+  }
 }
 
 @layer utilities {
