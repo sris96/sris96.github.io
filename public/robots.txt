@@ -1,0 +1,41 @@
+# Robots.txt for srishtychandra.com
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.git/
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 0
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 0
+
+# Sitemap location
+Sitemap: https://srishtychandra.com/sitemap.xml
+
+# Cache static assets
+User-agent: *
+Allow: /assets/
+Allow: /favicon/
+Allow: *.css
+Allow: *.js
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.gif
+Allow: *.svg
+Allow: *.webp

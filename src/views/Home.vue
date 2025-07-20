@@ -419,8 +419,25 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useSEO, seoData } from '../composables/useSEO'
 
 const router = useRouter()
+
+// Set page-specific SEO
+useSEO({
+  ...seoData.home,
+  structuredData: {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Srishty Chandra - Research Professional Portfolio",
+    "description": seoData.home.description,
+    "url": seoData.home.canonicalUrl,
+    "author": {
+      "@type": "Person",
+      "name": "Srishty Chandra"
+    }
+  }
+})
 
 // Enhanced data with better structure
 const researchFocus = [

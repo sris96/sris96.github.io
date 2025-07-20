@@ -138,4 +138,22 @@
 </template>
 
 <script setup>
+import { useSEO, seoData } from '../composables/useSEO'
+
+// Set page-specific SEO
+useSEO({
+  ...seoData.about,
+  structuredData: {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Srishty Chandra",
+    "description": seoData.about.description,
+    "url": seoData.about.canonicalUrl,
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Srishty Chandra",
+      "description": "Economics researcher with expertise in international trade and data analysis"
+    }
+  }
+})
 </script>

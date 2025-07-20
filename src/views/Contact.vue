@@ -9,7 +9,8 @@
     </section>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Centered Contact Information -->
+      <div class="max-w-2xl mx-auto">
         <!-- Contact Information -->
         <div>
           <h2 class="text-3xl font-bold text-gray-900 mb-8">Get In Touch</h2>
@@ -27,7 +28,7 @@
               </div>
               <div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Email</h3>
-                <p class="text-gray-600">srishty.chandra.2021@ssc.ac.in</p>
+                <p class="text-gray-600">srishty.chandra.98@gmail.com</p>
                 <p class="text-sm text-gray-500 mt-1">Best way to reach me for professional inquiries</p>
               </div>
             </div>
@@ -93,8 +94,8 @@
           </div>
         </div>
 
-        <!-- Contact Form -->
-        <div class="card">
+        <!-- Contact Form - Temporarily Hidden for Static Hosting -->
+        <!-- <div class="card">
           <h3 class="text-2xl font-bold text-gray-900 mb-6">Send a Message</h3>
           <form @submit.prevent="submitForm" class="space-y-6">
             <div>
@@ -169,7 +170,7 @@
           <div v-if="submitMessage" class="mt-4 p-4 rounded-lg" :class="submitMessage.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'">
             {{ submitMessage.text }}
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- Collaboration Opportunities -->
@@ -225,6 +226,25 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import { useSEO, seoData } from '../composables/useSEO'
+
+// Set page-specific SEO
+useSEO({
+  ...seoData.contact,
+  structuredData: {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Srishty Chandra",
+    "description": seoData.contact.description,
+    "url": seoData.contact.canonicalUrl,
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Srishty Chandra",
+      "email": "srishty.chandra.98@gmail.com",
+      "sameAs": "https://linkedin.com/in/srishty-chandra-9a5a73218"
+    }
+  }
+})
 
 const isSubmitting = ref(false)
 const submitMessage = ref(null)

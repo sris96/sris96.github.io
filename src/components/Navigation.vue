@@ -70,7 +70,7 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Resume', href: '/resume' },
-  { name: 'Projects', href: '/projects' },
+  // { name: 'Projects', href: '/projects' }, // Temporarily hidden until we have real projects to display
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ]
