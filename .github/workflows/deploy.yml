@@ -31,17 +31,30 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Make scripts executable
+        run: chmod +x scripts/prerender.js
+
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          echo "Build completed with prerendering"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
+      - name: Verify prerendered pages
+        run: |
+          echo "Checking prerendered pages..."
+          ls -la dist/
+          ls -la dist/blog/ || echo "No blog directory yet"
+          echo "Sample HTML meta tags from homepage:"
+          head -n 50 dist/index.html | grep -E "<title>|<meta|<link rel=\"canonical\""
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

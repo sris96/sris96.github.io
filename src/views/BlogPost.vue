@@ -191,7 +191,8 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { getBlogPostById, parseMarkdown } from '../utils/blog'
+import { getBlogPostBySlug, parseMarkdown } from '../utils/blog'
+import { useSEO } from '../composables/useSEO'
 
 const route = useRoute()
 const post = ref(null)
@@ -253,13 +254,60 @@ const copyLink = async () => {
 }
 
 onMounted(() => {
-  const postId = parseInt(route.params.id)
-  const blogPost = getBlogPostById(postId)
+  const slug = route.params.slug
+  const blogPost = getBlogPostBySlug(slug)
   
   if (blogPost) {
     post.value = blogPost
     // Parse markdown content to HTML
     htmlContent.value = parseMarkdown(blogPost.content)
+    
+    // Update SEO for blog post
+    const seoData = blogPost.seo || {}
+    const defaultStructuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: blogPost.title,
+      description: blogPost.excerpt,
+      author: {
+        '@type': 'Person',
+        name: blogPost.author.name,
+        url: 'https://srishtychandra.com'
+      },
+      datePublished: new Date(blogPost.date).toISOString(),
+      dateModified: blogPost.dateModified ? new Date(blogPost.dateModified).toISOString() : new Date(blogPost.date).toISOString(),
+      image: blogPost.coverImage || 'https://srishtychandra.com/srishty-chandra-profile.jpg',
+      publisher: {
+        '@type': 'Person',
+        name: 'Srishty Chandra',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://srishtychandra.com/favicon/favicon-192x192.png'
+        }
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': currentUrl.value
+      },
+      keywords: blogPost.tags.join(', '),
+      articleBody: blogPost.content,
+      wordCount: blogPost.content.split(' ').length,
+      timeRequired: blogPost.readTime
+    }
+    
+    useSEO({
+      title: seoData.title || `${blogPost.title} | Srishty Chandra Blog`,
+      description: seoData.description || blogPost.excerpt,
+      keywords: seoData.keywords || `${blogPost.tags.join(', ')}, Srishty Chandra, economics blog, research insights`,
+      ogTitle: seoData.ogTitle || blogPost.title,
+      ogDescription: seoData.ogDescription || blogPost.excerpt,
+      ogImage: seoData.ogImage || blogPost.coverImage || 'https://srishtychandra.com/srishty-chandra-profile.jpg',
+      twitterTitle: seoData.twitterTitle || blogPost.title,
+      twitterDescription: seoData.twitterDescription || blogPost.excerpt,
+      twitterImage: seoData.twitterImage || blogPost.coverImage || 'https://srishtychandra.com/srishty-chandra-profile.jpg',
+      canonicalUrl: seoData.canonicalUrl || `https://srishtychandra.com/blog/${blogPost.slug}`,
+      structuredData: blogPost.structuredData || defaultStructuredData
+    })
   }
 })
 </script>

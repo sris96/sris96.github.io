@@ -13,6 +13,9 @@ export function parseFrontmatter(content) {
   // Parse YAML-like frontmatter
   const lines = frontmatter.split('\n')
   let inAuthor = false
+  let inSeo = false
+  let inStructuredData = false
+  let structuredDataLines = []
   
   for (const line of lines) {
     const trimmed = line.trim()
@@ -21,7 +24,27 @@ export function parseFrontmatter(content) {
     // Handle author object
     if (trimmed === 'author:') {
       inAuthor = true
+      inSeo = false
+      inStructuredData = false
       data.author = {}
+      continue
+    }
+    
+    // Handle SEO object
+    if (trimmed === 'seo:') {
+      inSeo = true
+      inAuthor = false
+      inStructuredData = false
+      data.seo = {}
+      continue
+    }
+    
+    // Handle structured data
+    if (trimmed === 'structuredData:') {
+      inStructuredData = true
+      inAuthor = false
+      inSeo = false
+      structuredDataLines = []
       continue
     }
     
@@ -33,9 +56,48 @@ export function parseFrontmatter(content) {
       continue
     }
     
-    // Reset author flag for other keys
-    if (inAuthor && trimmed.includes(':') && !trimmed.startsWith('name:') && !trimmed.startsWith('role:')) {
+    // Handle SEO properties
+    if (inSeo && trimmed.includes(':')) {
+      const [key, ...valueParts] = trimmed.split(':')
+      const keyName = key.trim()
+      let value = valueParts.join(':').trim().replace(/^['"]|['"]$/g, '')
+      
+      // Handle arrays in SEO
+      if (value.startsWith('[') && value.endsWith(']')) {
+        const arrayContent = value.slice(1, -1)
+        data.seo[keyName] = arrayContent
+          .split(',')
+          .map(item => item.trim().replace(/^['"]|['"]$/g, ''))
+          .filter(item => item.length > 0)
+      } else {
+        data.seo[keyName] = value
+      }
+      continue
+    }
+    
+    // Handle structured data (collect as JSON)
+    if (inStructuredData) {
+      structuredDataLines.push(line)
+      continue
+    }
+    
+    // Reset flags for other top-level keys
+    if (trimmed.includes(':') && !trimmed.startsWith('  ')) {
       inAuthor = false
+      inSeo = false
+      if (inStructuredData) {
+        // Parse collected structured data
+        try {
+          const jsonStr = structuredDataLines.join('\n').trim()
+          if (jsonStr) {
+            data.structuredData = JSON.parse(jsonStr)
+          }
+        } catch (e) {
+          console.warn('Failed to parse structured data:', e)
+        }
+        inStructuredData = false
+        structuredDataLines = []
+      }
     }
     
     // Handle regular key-value pairs
@@ -44,8 +106,8 @@ export function parseFrontmatter(content) {
       const keyName = key.trim()
       let value = valueParts.join(':').trim()
       
-      // Skip if this is the author key (already handled above)
-      if (keyName === 'author') {
+      // Skip if this is a special key (already handled above)
+      if (keyName === 'author' || keyName === 'seo' || keyName === 'structuredData') {
         continue
       }
       
@@ -72,6 +134,18 @@ export function parseFrontmatter(content) {
       } else {
         data[keyName] = value
       }
+    }
+  }
+  
+  // Final check for structured data
+  if (inStructuredData && structuredDataLines.length > 0) {
+    try {
+      const jsonStr = structuredDataLines.join('\n').trim()
+      if (jsonStr) {
+        data.structuredData = JSON.parse(jsonStr)
+      }
+    } catch (e) {
+      console.warn('Failed to parse structured data:', e)
     }
   }
   

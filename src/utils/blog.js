@@ -36,6 +36,12 @@ export function getBlogPostById(id) {
   return posts.find(post => post.id === parseInt(id))
 }
 
+// Get a single blog post by slug
+export function getBlogPostBySlug(slug) {
+  const posts = getAllBlogPosts()
+  return posts.find(post => post.slug === slug)
+}
+
 // Get featured posts
 export function getFeaturedPosts() {
   const posts = getAllBlogPosts()

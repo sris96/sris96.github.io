@@ -2,6 +2,7 @@
 id: 10
 title: "Rising consumption amid reduced saving: How will India navigate further balancing both the aspects?"
 date: "June 3, 2025"
+dateModified: "June 3, 2025"
 excerpt: "An analysis of India's economic challenge in balancing rising consumption with reduced savings rates."
 category: "Economic Research"
 readTime: "15 min read"
@@ -12,6 +13,67 @@ author:
 featured: true
 coverImage: "https://www.ideasforindia.in/uploads/mblog/thumb/1734674743_nbfc.jpg"
 imageCredit: "Creator: Advantus Media Inc. and QuoteInspector.com | Credit: QuoteInspector.com | Copyright: © 2018 Advantus Media, Inc. and QuoteInspector.com"
+seo:
+  title: "India's Rising Consumption vs Reduced Savings: Economic Analysis by Srishty Chandra"
+  description: "Comprehensive economic analysis of India's challenge in balancing rising consumption with declining household savings rates. Explores macroeconomic trends, behavioral factors, and policy implications for sustainable growth."
+  keywords: ["India economy", "household savings", "consumption patterns", "economic analysis", "Srishty Chandra", "macroeconomics", "Indian savings rate", "consumer behavior", "economic policy", "fiscal policy India"]
+  ogTitle: "India's Economic Challenge: Rising Consumption Amid Reduced Savings"
+  ogDescription: "Expert analysis by Srishty Chandra on India's shifting economic landscape - how rising consumption and falling savings impact economic resilience."
+  canonicalUrl: "https://srishtychandra.com/blog/rising-consumption-amid-reduced-saving"
+structuredData:
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": "https://srishtychandra.com/blog/rising-consumption-amid-reduced-saving#article",
+    "headline": "Rising consumption amid reduced saving: How will India navigate further balancing both the aspects?",
+    "alternativeHeadline": "As India Becomes a Consumption Giant, Are We Sacrificing Economic Resilience?",
+    "description": "Comprehensive economic analysis of India's challenge in balancing rising consumption with declining household savings rates.",
+    "image": "https://www.ideasforindia.in/uploads/mblog/thumb/1734674743_nbfc.jpg",
+    "datePublished": "2025-06-03",
+    "dateModified": "2025-06-03",
+    "author": {
+      "@type": "Person",
+      "name": "Srishty Chandra",
+      "url": "https://srishtychandra.com",
+      "sameAs": ["https://linkedin.com/in/srishty-chandra-9a5a73218"]
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Srishty Chandra",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://srishtychandra.com/favicon/favicon-192x192.png"
+      }
+    },
+    "keywords": "India economy, household savings, consumption patterns, economic analysis, macroeconomics",
+    "articleSection": "Economic Research",
+    "wordCount": 2000,
+    "timeRequired": "PT15M",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "Srishty Chandra Economics Blog",
+      "url": "https://srishtychandra.com/blog"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Indian Economy",
+        "sameAs": "https://en.wikipedia.org/wiki/Economy_of_India"
+      },
+      {
+        "@type": "Thing",
+        "name": "Household Savings",
+        "sameAs": "https://en.wikipedia.org/wiki/Saving"
+      }
+    ],
+    "mentions": [
+      {
+        "@type": "Organization",
+        "name": "MoSPI",
+        "sameAs": "https://mospi.gov.in/"
+      }
+    ]
+  }
 ---
 
 __*As India Becomes a Consumption Giant, Are We Sacrificing Economic Resilience?*__

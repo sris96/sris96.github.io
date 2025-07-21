@@ -33,7 +33,7 @@
               <div class="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8">
                 <span v-for="tag in featuredPost.tags.slice(0, 3)" :key="tag" class="skill-tag text-xs sm:text-sm">{{ tag }}</span>
               </div>
-              <router-link :to="`/blog/${featuredPost.id}`" class="btn-primary group touch-manipulation transform active:scale-95 sm:hover:scale-105">
+              <router-link :to="`/blog/${featuredPost.slug}`" class="btn-primary group touch-manipulation transform active:scale-95 sm:hover:scale-105">
                 <span>Read Full Article</span>
                 <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
@@ -108,7 +108,7 @@
           </div>
           
           <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            <router-link v-for="post in filteredPosts" :key="post.id" :to="`/blog/${post.id}`" class="blog-card group transform active:scale-95 sm:hover:scale-105 sm:hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+            <router-link v-for="post in filteredPosts" :key="post.id" :to="`/blog/${post.slug}`" class="blog-card group transform active:scale-95 sm:hover:scale-105 sm:hover:-translate-y-1 transition-all duration-300 cursor-pointer">
               <div class="relative overflow-hidden">
                 <div class="h-40 sm:h-48 rounded-t-lg overflow-hidden">
                   <img 
